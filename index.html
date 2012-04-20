@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+        <title>Index</title>
+    </head>
+    <body>
+        <div id="available-fields">
+            <ul>
+                <li onclick="Enumfield().start_creation('#playground')">enum</li>
+            </ul>
+        </div>
+        <a onclick="alert(exportToJSON());">export to json</a>
+
+        <form action="index_submit" method="get" accept-charset="utf-8">
+            <input type="text" name="title" placeholder="title" />
+            <textarea name="description" placeholder="description"></textarea>
+
+            <div id="fields"></div>
+        
+            <p><input type="submit" value="Continue &rarr;"></p>
+        </form>
+
+        <script type="text/javascript" src="daybed.js"></script>
+    </body>
+</html>
