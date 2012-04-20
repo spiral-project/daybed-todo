@@ -99,15 +99,15 @@ ChoiceFieldGenerator.prototype.addChoice = function(rootNode, elementType){
  * @param rootNode the DOM rootNode to build upon.
  **/
 ChoiceFieldGenerator.prototype.build = function(rootNode){
-    var name = this.createText("name");
+    var name = this.createTextInput("name");
     rootNode.appendChild(name);
     this.name = name.lastChild;
     
-    help = this.createText("help");
+    help = this.createTextInput("help");
     rootNode.appendChild(help);
     this.help = help.lastChild;
     
-    rootNode.appendChild(this.createChoices("choices"));
+    rootNode.appendChild(this.createChoicesInput("choices"));
 }
 
 /**
