@@ -30,10 +30,6 @@ a:hover {
     padding: 20px;
 }
 
-#available-fields {
-    display: none;
-}
-
 #edited-form .header {
     display: block;
     width: 100%;
