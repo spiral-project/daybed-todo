@@ -54,14 +54,14 @@ ChoiceFieldGenerator.prototype.createTextInput = function(id, name){
  **/
 ChoiceFieldGenerator.prototype.createChoicesInput = function(){
     var ul = document.createElement('ul');
-    this.addChoice(ul);
+    this.addChoice(ul, "li");
     
     var choices = document.createElement('div');
     var littlePlus = document.createElement('a');
     littlePlus.innerHTML = "yeah, add one!";
     //var self = this;
     littlePlus.onclick = function(){
-        this.addChoice(ul);
+        this.addChoice(ul, "li");
     }.bind(this);
     
     choices.appendChild(ul);
@@ -151,9 +151,13 @@ function exportToJSON(){
  **/
 function newField(type, id){
     var rootNode = document.getElementById(id);
+    var newDiv = document.createElement("div");
+    newDiv.className = type + " field";
+    rootNode.appendChild(newDiv);
+
     var field;
     if (type == "enum"){
-        field = new ChoiceFieldGenerator(rootNode);
+        field = new ChoiceFieldGenerator(newDiv);
     } else {
         console.error("We don't know how to generate this field");
     };
