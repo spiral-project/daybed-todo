@@ -33,10 +33,12 @@ ChoiceFieldGenerator.prototype.createChoices = function(){
     
     var choices = document.createElement('div');
     var littlePlus = document.createElement('a');
-    littlePlus.innerHTML = "yeah, add one!";
+    littlePlus.href = "#";
+    littlePlus.innerHTML = "Add one more &plus;";
     //var self = this;
     littlePlus.onclick = function(){
         this.addChoice(ul);
+        return false;
     }.bind(this);
     
     choices.appendChild(ul);
@@ -61,11 +63,11 @@ ChoiceFieldGenerator.prototype.addChoice = function(ul){
 
 
 ChoiceFieldGenerator.prototype.build = function(node){
-    var name = this.createText("name");
+    var name = this.createText("Name");
     node.appendChild(name);
     this.name = name.lastChild;
     
-    help = this.createText("help");
+    help = this.createText("Help");
     node.appendChild(help);
     this.help = help.lastChild;
     

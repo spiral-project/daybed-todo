@@ -1,0 +1,72 @@
+@import url('http://fonts.googleapis.com/css?family=Chau+Philomene+One');
+
+body {
+    background: #efe;
+    color: #000;
+    font-family: 
+}
+
+h1 {
+    font-family: 'Chau Philomene One', sans-serif;
+    margin: 0 0 1em 0;
+    padding: 0;
+    text-align: right;
+}
+
+a {
+    color: #0d0;
+}
+
+a:hover {
+    color: #3d3;
+    text-decoration: underline;
+}
+
+#container {
+    width: 700px;
+    margin: 20px auto;
+    background: #fff;
+    border: #9d9 1px solid;
+    padding: 20px;
+}
+
+#available-fields {
+    display: none;
+}
+
+#edited-form .header {
+    display: block;
+    width: 100%;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+#edited-form .description {
+    display: block;
+    width: 100%;
+    height: 8em;
+    margin-bottom: 2em;
+    resize: none;
+}
+
+#fields > div {
+    padding: 1em;
+}
+
+#fields > div:hover {
+    background: #fee;
+}
+
+#fields label {
+    width: 10em;
+    float: left;
+}
+
+#fields label:after {
+    content: ':';
+}
+
+#fields input {
+    width: 30em;
+}

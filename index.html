@@ -1,27 +1,32 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Index</title>
+</head>
+<body>
+
+<div id="container">
+    <h1>DayBed-UI</h1>
+
+    <div id="available-fields">
+        <ul>
+            <li onclick="Enumfield().start_creation('#playground')">enum</li>
+        </ul>
+    </div>
     
-        <title>Index</title>
-    </head>
-    <body>
-        <div id="available-fields">
-            <ul>
-                <li onclick="Enumfield().start_creation('#playground')">enum</li>
-            </ul>
-        </div>
-        <a onclick="alert(exportToJSON());">export to json</a>
+    <form id="edited-form" action="index_submit" method="get" accept-charset="utf-8">
+        <input type="text" name="title" placeholder="Type the title of your form here..." class="header" />
+        <textarea name="description" placeholder="Type a description of your form here..." class="description"></textarea>
 
-        <form action="index_submit" method="get" accept-charset="utf-8">
-            <input type="text" name="title" placeholder="title" />
-            <textarea name="description" placeholder="description"></textarea>
+        <div id="fields"></div>
+    
+        <p><button type="button" onclick="alert(exportToJSON());">Continue &rarr;</button></p>
+    </form>
+</div>
 
-            <div id="fields"></div>
-        
-            <p><input type="submit" value="Continue &rarr;"></p>
-        </form>
+<script type="text/javascript" src="daybed.js"></script>
 
-        <script type="text/javascript" src="daybed.js"></script>
-    </body>
+</body>
 </html>
