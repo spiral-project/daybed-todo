@@ -1,6 +1,20 @@
 // We have a global variable fields containing all the fields.
 var fields = new Array();
 
+/**
+ * Instanciate the field generator.
+ *
+ * @param rootNode: the rootNode to append to content to.
+ *                  if nothing is given, then you will have to call build()
+ *                  yourself.
+ **/
+function ChoiceFieldGenerator(rootNode) {
+    this.type = "choice";
+    this.choices = new Array();
+    if (rootNode != undefined){
+        this.build(rootNode);
+    }
+}
 
 /**
  * Create a div containing an input and a label for it.
@@ -9,6 +23,7 @@ var fields = new Array();
  * @param name (if not set, name fallbacks on id)
  * @return the dom element containing the label + the input.
  **/
+
 ChoiceFieldGenerator.prototype.createTextInput = function(id, name){
     
     if (name == undefined){
@@ -128,6 +143,19 @@ function exportToJSON(){
     return JSON.stringify(output);
 }
 
-var choicefield = new ChoiceFieldGenerator("yeah"); // to do on click
-choicefield.build(document.getElementById('fields'));
-fields.push(choicefield);
+/**
+ * Provides a high level API to generate fields
+ *
+ * @param type the type of the field to create.
+ * @param id the identifier of the root node to append the field to.
+ **/
+function newField(type, id){
+    var rootNode = document.getElementById(id);
+    var field;
+    if (type == "enum"){
+        field = new ChoiceFieldGenerator(rootNode);
+    } else {
+        console.error("We don't know how to generate this field");
+    };
+    fields.push(field);
+}
