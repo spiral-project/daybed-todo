@@ -1,12 +1,30 @@
+// We have a global variable fields containing all the fields.
 var fields = new Array();
 
-function ChoiceFieldGenerator(id) {
+/**
+ * Instanciate the field generator.
+ *
+ * @param rootNode: the rootNode to append to content to.
+ *                  if nothing is given, then you will have to call build()
+ *                  yourself.
+ **/
+function ChoiceFieldGenerator(rootNode) {
     this.type = "choice";
-    this.id = id;
     this.choices = new Array();
+    if (rootNode != undefined){
+        this.build(rootNode);
+    }
 }
 
-ChoiceFieldGenerator.prototype.createText = function(id, name){
+/**
+ * Create a div containing an input and a label for it.
+ *
+ * @param id the id used for the input.
+ * @param name (if not set, name fallbacks on id)
+ * @return the dom element containing the label + the input.
+ **/
+
+ChoiceFieldGenerator.prototype.createTextInput = function(id, name){
     
     if (name == undefined){
         name = id;
@@ -27,18 +45,23 @@ ChoiceFieldGenerator.prototype.createText = function(id, name){
     return field;
 }
 
-ChoiceFieldGenerator.prototype.createChoices = function(){
+/**
+ * Create a div, containing a list of choices.
+ *
+ * It is possible to add a choice in the ul by clicking on a link.
+ *
+ * @return the DOM element containing the div with the ul and the a.
+ **/
+ChoiceFieldGenerator.prototype.createChoicesInput = function(){
     var ul = document.createElement('ul');
     this.addChoice(ul);
     
     var choices = document.createElement('div');
     var littlePlus = document.createElement('a');
-    littlePlus.href = "#";
-    littlePlus.innerHTML = "Add one more &plus;";
+    littlePlus.innerHTML = "yeah, add one!";
     //var self = this;
     littlePlus.onclick = function(){
         this.addChoice(ul);
-        return false;
     }.bind(this);
     
     choices.appendChild(ul);
@@ -46,40 +69,58 @@ ChoiceFieldGenerator.prototype.createChoices = function(){
     return choices;
 }
 
-ChoiceFieldGenerator.prototype.addChoice = function(ul){
+/**
+ * Add a choice to the given dom element.
+ *
+ * @param rootNode the root node to add the choice to.
+ * @param elementType the type of the element to pass to createElement.
+ * @return the created DOM element.
+ **/
+ChoiceFieldGenerator.prototype.addChoice = function(rootNode, elementType){
     var label = document.createElement('input');
     label.type = 'text';
     
     var is_default = document.createElement('input');
     is_default.type = 'checkbox';
     
-    var li = document.createElement('li');
-    li.appendChild(is_default);
-    li.appendChild(label);
-    ul.appendChild(li);
+    var element = document.createElement(elementType);
+    element.appendChild(is_default);
+    element.appendChild(label);
+    rootNode.appendChild(element);
     
     this.choices.push({is_default: is_default, label: label});
+    return element;
 }
 
 
-ChoiceFieldGenerator.prototype.build = function(node){
-    var name = this.createText("Name");
-    node.appendChild(name);
+/**
+ * Build the different fields needed for a ChoiceField creation.
+ *
+ * @param rootNode the DOM rootNode to build upon.
+ **/
+ChoiceFieldGenerator.prototype.build = function(rootNode){
+    var name = this.createTextInput("name");
+    rootNode.appendChild(name);
     this.name = name.lastChild;
     
-    help = this.createText("Help");
-    node.appendChild(help);
+    help = this.createTextInput("help");
+    rootNode.appendChild(help);
     this.help = help.lastChild;
     
-    node.appendChild(this.createChoices("choices"));
+    rootNode.appendChild(this.createChoicesInput("choices"));
 }
 
+/**
+ * Returns a javascript object containing only the information of interest for
+ * the representation of it.
+ * */
 ChoiceFieldGenerator.prototype.getModel = function(){
 
     var choices = new Array();
     for (var i = 0; i < this.choices.length; i++){
         var choice = this.choices[i];
-        choices.push({label: choice.label.value, is_default: choice.is_default.checked});
+        choices.push({label: choice.label.value,
+                      is_default: choice.is_default.checked});
     }
     
     return {
@@ -89,10 +130,9 @@ ChoiceFieldGenerator.prototype.getModel = function(){
     };
 }
 
-var choicefield = new ChoiceFieldGenerator("yeah"); // to do on click
-choicefield.build(document.getElementById('fields'));
-fields.push(choicefield);
-
+/**
+ * Loop on the global fields and convert it to a json string
+ **/
 function exportToJSON(){
     var output = new Array();
     
@@ -101,4 +141,21 @@ function exportToJSON(){
     }
     
     return JSON.stringify(output);
+}
+
+/**
+ * Provides a high level API to generate fields
+ *
+ * @param type the type of the field to create.
+ * @param id the identifier of the root node to append the field to.
+ **/
+function newField(type, id){
+    var rootNode = document.getElementById(id);
+    var field;
+    if (type == "enum"){
+        field = new ChoiceFieldGenerator(rootNode);
+    } else {
+        console.error("We don't know how to generate this field");
+    };
+    fields.push(field);
 }
