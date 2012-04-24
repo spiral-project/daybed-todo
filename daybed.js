@@ -58,10 +58,12 @@ ChoiceFieldGenerator.prototype.createChoicesInput = function(){
     
     var choices = document.createElement('div');
     var littlePlus = document.createElement('a');
-    littlePlus.innerHTML = "yeah, add one!";
+    littlePlus.href = "#";
+    littlePlus.innerHTML = "One more";
     //var self = this;
     littlePlus.onclick = function(){
         this.addChoice(ul, "li");
+        return false;
     }.bind(this);
     
     choices.appendChild(ul);
@@ -99,11 +101,11 @@ ChoiceFieldGenerator.prototype.addChoice = function(rootNode, elementType){
  * @param rootNode the DOM rootNode to build upon.
  **/
 ChoiceFieldGenerator.prototype.build = function(rootNode){
-    var name = this.createTextInput("name");
+    var name = this.createTextInput("Name of the field");
     rootNode.appendChild(name);
     this.name = name.lastChild;
     
-    help = this.createTextInput("help");
+    help = this.createTextInput("Help text");
     rootNode.appendChild(help);
     this.help = help.lastChild;
     
