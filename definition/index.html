@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+  <script type="text/javascript" src="script/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="script/jquery.dform-1.0.0.min.js"></script>
+  <title>Daybed UI</title>
+</head>
+<body>
+
+<div id="container">
+  <h1>Daybed UI</h1>
+
+  <div id="fields-menu">
+    <ul>
+      <li><a href="#" field-type="text">Text</a></li>
+    </ul>
+  </div>
+
+  <form id="fields-form"></form>
+  
+  <p><button type="button">Save form</button></p>
+</div>
+
+<script type="text/javascript">
+
+var edit_forms = {
+  text: {elements: [{
+    type: "fieldset",
+    caption: "Text",
+    elements: [
+      {
+        type: "text",
+        caption: "Title"
+      },
+      {
+        type: "text",
+        caption: "Help text"
+      },
+      {
+        type: "text",
+        caption: "Default value"
+      }
+    ]
+  }]}
+};
+
+$("#fields-menu a[field-type]").click(function (e) {
+  e.preventDefault();
+  var field_type = $(this).attr("field-type");
+  $("#fields-form").dform(edit_forms[field_type]);
+});
+
+</script>
+
+</body>
+</html>
