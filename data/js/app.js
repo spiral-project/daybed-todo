@@ -111,11 +111,12 @@ jQuery(function( $ ) {
 			if ( e.which !== App.ENTER_KEY || !val ) {
 				return;
 			}
-			App.todos.push({
-				id: Utils.uuid(),
-				title: val,
-				completed: false
-			});
+			send(val);
+			// App.todos.push({
+			// 	id: Utils.uuid(),
+			// 	title: val,
+			// 	completed: false
+			// });
 			$input.val('');
 			App.render();
 		},

@@ -1,0 +1,41 @@
+{
+    "base_url": "http://localhost/daybed/",
+    "expected_status": [200],
+    "version": "0.1",
+    "methods": {
+        "get_spore": {
+            "path": "/spore",
+            "method": "GET",
+            "format": "json"
+        },
+        "post_model_data": {
+            "required_params": ["model_name"],
+            "path": "/data/:model_name",
+            "description": "Saves a model record.\n\n    Posted data fields will be matched against their related model\n    definition.\n    ",
+            "method": "POST",
+            "format": "json"
+        },
+        "create_model_definition": {
+            "required_params": ["model_name"],
+            "path": "/definitions/:model_name",
+            "description": "Create or update a model definition.\n\n    Checks that the data is a valid model definition.\n    In the case of a modification, checks that the token is valid and present.\n    ",
+            "method": "PUT",
+            "format": "json"
+        },
+        "get_model_definition": {
+            "required_params": ["model_name"],
+            "path": "/definitions/:model_name",
+            "description": "Retrieves the model definition.",
+            "method": "GET",
+            "format": "json"
+        },
+        "get_model_data": {
+            "required_params": ["model_name"],
+            "path": "/data/:model_name",
+            "description": "Retrieves all model records.\n    ",
+            "method": "GET",
+            "format": "json"
+        }
+    },
+    "name": "daybed"
+}
