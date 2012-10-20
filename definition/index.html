@@ -9,18 +9,32 @@
 </head>
 <body>
 
-<div id="container">
-  <h1>Daybed UI</h1>
-
-  <div id="fields-menu">
-    <ul>
-      <li><a href="#" field-type="text">Text</a></li>
-    </ul>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <span class="brand">Daybed-UI</span>
   </div>
+</div>
+    
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span3">
 
-  <form id="fields-form"></form>
-  
-  <p><button type="button">Save form</button></p>
+    <div id="fields-menu" class="fields-menu well affix">
+      <ul class="nav nav-list">
+        <li class="nav-header">Fields types</li>
+        <li><a href="#" field-type="text">Text</a></li>
+      </ul>
+    </div>
+
+    </div>
+    <div class="span9">
+
+      <form id="fields-form" class="fields-form">
+        <p><button class="btn" type="submit">Save form</button></p>
+      </form>
+      
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">
