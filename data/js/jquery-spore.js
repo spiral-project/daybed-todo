@@ -122,8 +122,9 @@ spore.api.prototype._call=function(fn,params,onsuccess,onerror) {
 	$.ajax({
 		type: method.method,
 		url: url,
-		data: dta,
+		data: JSON.stringify(dta),
 		dataType: dataType,
+		processData: false,
 		contentType: 'application/json; charset=utf-8',
 		success: function(data,status,req) {
 			spore.log(plog+'return '+(data?"datas":"nothing"));

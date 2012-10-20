@@ -6,7 +6,7 @@ function send(message){
             api=a;
             send(message);
         });
-    api.post_model_data({'model_name': 'todo', 'item': message, 'done': 1}, function (d,r) {
+    api.post_model_data({'model_name': 'todo', 'item': message, 'done': 'true'}, function (d,r) {
 		console.log(d);
 		console.log(r);
     },function(r){
