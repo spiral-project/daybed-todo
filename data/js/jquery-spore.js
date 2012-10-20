@@ -117,12 +117,12 @@ spore.api.prototype._call=function(fn,params,onsuccess,onerror) {
 		dta['format']='jsonp';
     } else {
         dataType = 'json';
-		dta['format']='json';
+		dta = JSON.stringify(dta);
     }
 	$.ajax({
 		type: method.method,
 		url: url,
-		data: JSON.stringify(dta),
+		data: dta,
 		dataType: dataType,
 		processData: false,
 		contentType: 'application/json; charset=utf-8',

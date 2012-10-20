@@ -1,4 +1,6 @@
 /*global jQuery, Handlebars */
+var App;
+
 jQuery(function( $ ) {
 	'use strict';
 
@@ -18,13 +20,15 @@ jQuery(function( $ ) {
 		}
 	};
 
-	var App = {
+	App = {
 		init: function() {
 			this.ENTER_KEY = 13;
 			this.todos = Utils.store('todos-jquery');
 			this.cacheElements();
 			this.bindEvents();
 			this.render();
+			this.todos = []; // Empty the localStorage so we can 
+			get_todos();
 		},
 		cacheElements: function() {
 			this.todoTemplate = Handlebars.compile( $('#todo-template').html() );
@@ -112,13 +116,7 @@ jQuery(function( $ ) {
 				return;
 			}
 			send(val);
-			// App.todos.push({
-			// 	id: Utils.uuid(),
-			// 	title: val,
-			// 	completed: false
-			// });
 			$input.val('');
-			App.render();
 		},
 		toggle: function() {
 			App.getTodo( this, function( i, val ) {
