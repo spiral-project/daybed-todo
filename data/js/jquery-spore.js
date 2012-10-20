@@ -124,6 +124,7 @@ spore.api.prototype._call=function(fn,params,onsuccess,onerror) {
 		url: url,
 		data: dta,
 		dataType: dataType,
+		contentType: 'application/json; charset=utf-8',
 		success: function(data,status,req) {
 			spore.log(plog+'return '+(data?"datas":"nothing"));
 			//call widgets backwards
