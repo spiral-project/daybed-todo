@@ -11,7 +11,7 @@
 
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-    <span class="brand">Daybed-UI</span>
+    <span class="brand">Daybed</span>
   </div>
 </div>
     
@@ -20,9 +20,8 @@
     <div class="span3">
 
     <div id="fields-menu" class="fields-menu well affix">
-      <ul class="nav nav-list">
+      <ul id="field-types" class="nav nav-list">
         <li class="nav-header">Fields types</li>
-        <li><a href="#" field-type="text">Text</a></li>
       </ul>
     </div>
 
@@ -38,35 +37,57 @@
 </div>
 
 <script type="text/javascript">
-
 var edit_forms = {
-  text: {elements: [{
-    type: "fieldset",
-    caption: "Text",
-    elements: [
-      {
-        type: "text",
-        caption: "Title"
-      },
-      {
-        type: "text",
-        caption: "Help text"
-      },
-      {
-        type: "text",
-        caption: "Default value"
-      }
-    ]
-  }]}
+    string: {elements: [{
+        type: "fieldset",
+        caption: "String",
+        elements: [{ type: "text", caption: "Title" },
+                   { type: "text", caption: "Help text" },
+                   { type: "text", caption: "Default value" },
+                   { type: "submit", value: "Add" }]
+    }]},
+    regex: {elements: [{
+        type: "fieldset",
+        caption: "Regexp",
+        elements: [{ type: "text", caption:"Title"},
+                   { type: "text", caption: "Help text" },
+                   { type: "text", caption: "Default value" }]
+    }]},
+    enum: {elements: [{
+        type: "fieldset",
+        caption: "Enum",
+        elements: [{ type: "text", caption:"Title"},
+                   { type: "text", caption: "Help text" },
+                   { type: "text", caption: "Values" },
+                   { type: "text", caption: "Default value" }]
+    }]},
+    int: {elements: [{
+        type: "fieldset",
+        caption: "Integer",
+        elements: [{ type: "text", caption:"Title"},
+                   { type: "text", caption: "Help text" },
+                   { type: "text", caption: "Default value" }]
+    }]}
 };
 
-$("#fields-menu a[field-type]").click(function (e) {
-  e.preventDefault();
-  var field_type = $(this).attr("field-type");
-  $("#fields-form").dform(edit_forms[field_type]);
+
+var host = 'http://daybed'
+
+$(document).ready(function(){
+    $.getJSON(host + '/fields', {}, function(data){
+        $(data).each(function(id, item){
+            $('#field-types').html($('#field-types').html() + '<li><a href="#" field-type="' + item + '">' + item + '</a></li>');
+            $("#fields-menu a[field-type]").click(function (e) {
+              e.preventDefault();
+              var field_type = $(this).attr("field-type");
+              $("#fields-form").dform(edit_forms[field_type]);
+            });
+        });
+    });
 });
 
 </script>
+
 
 </body>
 </html>
