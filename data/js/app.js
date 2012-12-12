@@ -93,7 +93,8 @@ jQuery(function( $ ) {
 				l = todos.length;
 			while ( l-- ) {
 				if ( todos[l].completed ) {
-					todos.splice( l, 1 );
+				    destroy(todos[l]);
+				    todos.splice( l, 1 );
 				}
 			}
 			App.render();
@@ -120,7 +121,8 @@ jQuery(function( $ ) {
 		},
 		toggle: function() {
 			App.getTodo( this, function( i, val ) {
-				val.completed = !val.completed;
+			    val.completed = !val.completed;
+			    update(val);
 			});
 			App.render();
 		},
@@ -134,17 +136,19 @@ jQuery(function( $ ) {
 		},
 		update: function() {
 			var val = $.trim( $(this).removeClass('editing').val() );
-			App.getTodo( this, function( i ) {
+		    App.getTodo( this, function( i ) {
 				if ( val ) {
 					this.todos[ i ].title = val;
 				} else {
 					this.todos.splice( i, 1 );
 				}
+         		update(this.todos[i]);
 				this.render();
 			});
 		},
 		destroy: function() {
 			App.getTodo( this, function( i ) {
+			    destroy(this.todos[i]);
 				this.todos.splice( i, 1 );
 				this.render();
 			});
