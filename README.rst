@@ -20,3 +20,7 @@ The data UI helps you to verify data against your model and save them on CouchDB
 The interface for the data ui comes from TodoMVC_.
 
 .. _TodoMVC: http://www.todomvc.com
+
+To use this, you need to configure your nginx server using the
+nginx.conf example and run it on http://daybed/ (You might also want
+to add 127.0.0.1 daybed in your /etc/hosts or your DNS server)

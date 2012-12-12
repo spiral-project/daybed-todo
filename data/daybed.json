@@ -1,5 +1,5 @@
 {
-    "base_url": "http://localhost/daybed",
+    "base_url": "http://daybed",
     "expected_status": [200],
     "version": "0.1",
     "methods": {
