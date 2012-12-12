@@ -4,7 +4,7 @@ spore.debug(true);
 
 function api_client(callback) {
     if(!api)
-        spore.create('daybed.json', function (a) {
+        spore.create('/spore', function (a) {
             api=a;
 			callback();
         });
@@ -14,7 +14,7 @@ function api_client(callback) {
 
 function send(message){
 	api_client(function() {
-		api.post_model_data({'model_name': 'todo', 'item': message, 'done': 'false'}, function (d,r) {
+		api.post_data({'model_name': 'todo', 'item': message, 'done': 'false'}, function (d,r) {
 			var todo = {
 				id: d.id,
 				title: message,
@@ -31,7 +31,7 @@ function send(message){
 
 function get_todos(){
 	api_client(function () {
-			api.get_model_data({'model_name': 'todo'}, function (d,r) {
+			api.get_data({'model_name': 'todo'}, function (d,r) {
 				var todo;
 				var data = d.data;			
 				for (var d in data) {
