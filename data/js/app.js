@@ -28,7 +28,7 @@ jQuery(function( $ ) {
 			this.bindEvents();
 			this.render();
 			this.todos = []; // Empty the localStorage so we can 
-      this.remote = new RemoteTodo('http://192.168.0.3:8000');
+      this.remote = new RemoteTodo('http://localhost:8000', this);
 		},
 		cacheElements: function() {
 			this.todoTemplate = Handlebars.compile( $('#todo-template').html() );
