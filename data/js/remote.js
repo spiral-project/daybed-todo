@@ -2,9 +2,17 @@ function RemoteTodo(host, app) {
   this.app = app;
   var self = this;
 
-  Daybed.getToken(host).then(function(credentials) {
-    credentials = credentials;
-    self.session = new Daybed.Session(host, credentials);
+  Daybed.startSession(host, {
+    getToken: function() {
+      if (window.location.hash !== "") {
+        return window.location.hash.slice(1);
+      }
+    }
+  }).then(function(session) {
+    self.session = session;
+    if (session.token !== window.location.hash.slice(1)) {
+      window.location.hash = session.token;
+    }
     self.getTaskList();
   });
 }

@@ -36,7 +36,7 @@
           reject(new Error(req.responseText));
           return;
         }
-        resolve(JSON.parse(req.responseText));
+        resolve(req.response);
       };
 
       req.onerror = req.ontimeout = function(event) {
@@ -108,8 +108,8 @@
 
     var credentials = options.credentials;
     var token = options.getToken && options.getToken();
-    if (!credentials && token) {
 
+    if (!credentials && token) {
       deriveHawkCredentials(token, 'sessionToken', 32*2, function (creds) {
         credentials = creds;
       });
@@ -120,15 +120,18 @@
       throw new Error(arguments);
     })
     .then(function (data) {
-      return new Session(host, data.credentials, options);
+      console.log(data);
+      return new Session(host, data.credentials, {token: data.token});
     });
   }
 
   function Session(host, credentials, options) {
+    options = options || {};
     if (host === undefined) {
       throw new Error("You should provide an host.");
     }
     this.host = host;
+    this.token = options.token;
     this.credentials = _credentials(credentials);
     this.options = options;
   }
@@ -147,6 +150,9 @@
         method: "GET",
         url: this.host + "/models",
         credentials: this.credentials
+      })
+      .then(function(doc) {
+        return doc.models;
       });
     },
 
