@@ -28,7 +28,7 @@ jQuery(function( $ ) {
 			this.bindEvents();
 			this.render();
 			this.todos = []; // Empty the localStorage so we can 
-			get_todos();
+      this.remote = new RemoteTodo('http://localhost:8000', this);
 		},
 		cacheElements: function() {
 			this.todoTemplate = Handlebars.compile( $('#todo-template').html() );
@@ -93,8 +93,8 @@ jQuery(function( $ ) {
 				l = todos.length;
 			while ( l-- ) {
 				if ( todos[l].completed ) {
-				    destroy(todos[l]);
-				    todos.splice( l, 1 );
+          this.remote.removeTask(todos[l]);
+          todos.splice( l, 1 );
 				}
 			}
 			App.render();
@@ -116,13 +116,13 @@ jQuery(function( $ ) {
 			if ( e.which !== App.ENTER_KEY || !val ) {
 				return;
 			}
-			send(val);
+			App.remote.createTask(val);
 			$input.val('');
 		},
 		toggle: function() {
 			App.getTodo( this, function( i, val ) {
-			    val.completed = !val.completed;
-			    update(val);
+        val.completed = !val.completed;
+        this.remote.updateTaskStatus(val);
 			});
 			App.render();
 		},
@@ -136,19 +136,19 @@ jQuery(function( $ ) {
 		},
 		update: function() {
 			var val = $.trim( $(this).removeClass('editing').val() );
-		    App.getTodo( this, function( i ) {
+        App.getTodo( this, function( i ) {
 				if ( val ) {
 					this.todos[ i ].title = val;
 				} else {
 					this.todos.splice( i, 1 );
 				}
-         		update(this.todos[i]);
+        this.remote.updateTaskStatus(this.todos[i]);
 				this.render();
 			});
 		},
 		destroy: function() {
 			App.getTodo( this, function( i ) {
-			    destroy(this.todos[i]);
+        this.remote.removeTask(this.todos[i]);
 				this.todos.splice( i, 1 );
 				this.render();
 			});
@@ -156,5 +156,4 @@ jQuery(function( $ ) {
 	};
 
 	App.init();
-
 });

@@ -1,0 +1,21 @@
+{"definition":
+  {
+    "title": "todo",
+    "description": "A list of my stuff to do",
+    "fields": [
+        {
+            "name": "item",
+            "type": "string",
+            "label": "The item"
+        },
+        {
+            "name": "status",
+            "type": "enum",
+            "choices": [
+                "done",
+                "todo"
+            ],
+            "label": "is it done or not"
+        }
+     ]
+  }}
