@@ -28,7 +28,7 @@ jQuery(function( $ ) {
 			this.bindEvents();
 			this.render();
 			this.todos = []; // Empty the localStorage so we can 
-      this.remote = new RemoteTodo('http://localhost:8000', this);
+      this.remote = new RemoteTodo('https://daybed.lolnet.org', this);
 		},
 		cacheElements: function() {
 			this.todoTemplate = Handlebars.compile( $('#todo-template').html() );
