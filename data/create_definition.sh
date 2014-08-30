@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-TOKEN=fe9107ae68307f61304a71c6d647b2a95a4ea337e11d2c693b69ed91586d192a
+TOKEN=$1
 DEFINITION=$(cat <<EOF
 {
  "definition": {
@@ -26,7 +26,7 @@ DEFINITION=$(cat <<EOF
 EOF
 )
 echo $DEFINITION | python -m json.tool
-echo $DEFINITION | http PUT http://localhost:8000/models/todo_test --auth-type=hawk --auth="${TOKEN}:"
+echo $DEFINITION | http PUT http://localhost:8000/models/todo --auth-type=hawk --auth="${TOKEN}:"
 
 PERMISSIONS=$(cat <<EOF
 {
@@ -36,4 +36,4 @@ PERMISSIONS=$(cat <<EOF
 EOF
 )
 echo $PERMISSIONS | python -m json.tool
-echo $PERMISSIONS | http PATCH http://localhost:8000/models/todo_test/permissions --auth-type=hawk --auth="${TOKEN}:"
+echo $PERMISSIONS | http PATCH http://localhost:8000/models/todo/permissions --auth-type=hawk --auth="${TOKEN}:"
