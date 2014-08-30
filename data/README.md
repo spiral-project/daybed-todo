@@ -6,7 +6,7 @@ This is a small Todo list Daybed UI app
 
 ### Database setup
 
-Run daybed server on localhost:8000 and then create a token:
+First of all run daybed server on localhost:8000
 
 #### Verify if the database is ready
 
