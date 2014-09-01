@@ -26,7 +26,7 @@ DEFINITION=$(cat <<EOF
 EOF
 )
 echo $DEFINITION | python -m json.tool
-echo $DEFINITION | http PUT http://localhost:8000/models/todo --auth-type=hawk --auth="${TOKEN}:"
+echo $DEFINITION | http PUT http://localhost:8000/models/todo --auth-type=hawk --auth="${TOKEN}:" --verify=no
 
 PERMISSIONS=$(cat <<EOF
 {
@@ -36,4 +36,4 @@ PERMISSIONS=$(cat <<EOF
 EOF
 )
 echo $PERMISSIONS | python -m json.tool
-echo $PERMISSIONS | http PATCH http://localhost:8000/models/todo/permissions --auth-type=hawk --auth="${TOKEN}:"
+echo $PERMISSIONS | http PATCH http://localhost:8000/models/todo/permissions --auth-type=hawk --auth="${TOKEN}:" --verify=no
